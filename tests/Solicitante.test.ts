@@ -9,10 +9,24 @@ test("Should get a Solicitante", async () => {
   expect(solicitante.nome).toBe("Uno");
 });
 
-test("Should throw an error when Solicitante doesn't exist!", async () => {
+test("Should throw an error when Solicitante doesn't exist!", () => {
   const solicitanteRepositorySql = new SolicitanteRepositorySql();
   const getSolicitante = new GetSolicitante(solicitanteRepositorySql);
   expect(() => getSolicitante.execute("12345678912346")
   ).rejects.toThrow("Solicitante não encontrado!")
 })
 
+test("Should create a Solicitante", async () => {
+  const solicitanteRepositorySql = new SolicitanteRepositorySql();
+  const createSolicitante = new CreateSolicitante(solicitanteRepositorySql);
+  const solicitante = await createSolicitante.execute('09876543210987', 'teste', '11111111', 'rua teste', 'testopolis', 'testando', '19989971071', 'contato@teste.com');
+  expect(solicitante.nome).toBe('teste');
+})
+
+test("Should throw an error when Solicitante already exists", () => {
+  const solicitanteRepositorySql = new SolicitanteRepositorySql();
+  const createSolicitante = new CreateSolicitante(solicitanteRepositorySql);
+  expect(async () => {
+    await createSolicitante.execute('12345678912345', 'Uno', '11111111', 'rua teste', 'testopolis', 'testando', '19989971071', 'contato@teste.com')
+  }).rejects.toThrow("CNPJ já cadastrado!");
+})

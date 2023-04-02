@@ -22,4 +22,45 @@ export default class SolicitanteRepositorySql implements SolicitanteRepository {
       solicitante.email
     );
   }
+
+  async createSolicitante(
+    cnpj: string,
+    nome: string,
+    cep: string,
+    endereco: string,
+    cidade: string,
+    estado: string,
+    telefone: string,
+    email: string
+  ): Promise<Solicitante> {
+    const solicitanteExistente = await prisma.solicitante.findUnique({
+      where: { cnpj },
+    });
+
+    if (solicitanteExistente) throw new Error("CNPJ já cadastrado!");
+
+    const solicitante = await prisma.solicitante.create({
+      data: {
+        cnpj,
+        nome,
+        cep,
+        endereco,
+        cidade,
+        estado,
+        telefone,
+        email,
+      },
+    });
+
+    return SolicitanteAdapter.create(
+      solicitante.cnpj,
+      solicitante.nome,
+      solicitante.cep,
+      solicitante.endereco,
+      solicitante.cidade,
+      solicitante.estado,
+      solicitante.telefone,
+      solicitante.email
+    );
+  }
 }
