@@ -13,13 +13,13 @@ A API implementa as seguintes funcionalidades:
 - Consulta de Solicitações de Análise
 - Consulta de Amostras
 - Consulta de Análises
-- Como executar o projeto
 
-## Pré-requisitos
+## Como executar o projeto
+### Pré-requisitos
 - Node.js instalado em sua máquina
 - Docker instalado em sua máquina
 
-## Passos
+### Passos
 - Clone este repositório em sua máquina usando o comando: 
 ``` 
 git clone https://github.com/DaviidSantos/uno-api 
