@@ -1,6 +1,7 @@
 import SolicitanteRepositorySql from "../src/infra/repository/SolicitanteRepositorySql";
 import GetSolicitante from "../src/core/solicitante/usecases/GetSolicitante";
 import CreateSolicitante from "../src/core/solicitante/usecases/CreateSolicitante";
+import GetAllSolicitantes from "../src/core/solicitante/usecases/GetAllSolicitantes";
 
 test("Should get a Solicitante", async () => {
   const solicitanteRepositorySql = new SolicitanteRepositorySql();
@@ -29,4 +30,11 @@ test("Should throw an error when Solicitante already exists", () => {
   expect(async () => {
     await createSolicitante.execute('12345678912345', 'Uno', '11111111', 'rua teste', 'testopolis', 'testando', '19989971071', 'contato@teste.com')
   }).rejects.toThrow("CNPJ já cadastrado!");
+})
+
+test("Should get all Solicitantes", async() => {
+  const solicitanteRepositorySql = new SolicitanteRepositorySql();
+  const getAllSolicitantes = new GetAllSolicitantes(solicitanteRepositorySql);
+  const solicitantes = await getAllSolicitantes.execute();
+  expect(solicitantes.length).toBe(2);
 })

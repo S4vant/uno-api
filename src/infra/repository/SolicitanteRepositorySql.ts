@@ -63,4 +63,10 @@ export default class SolicitanteRepositorySql implements SolicitanteRepository {
       solicitante.email
     );
   }
+
+  async getAllSolicitantes(): Promise<Solicitante[]> {
+    let solicitantes = await prisma.solicitante.findMany();
+    solicitantes = solicitantes.map(solicitante => SolicitanteAdapter.create(solicitante.cnpj, solicitante.nome, solicitante.cep, solicitante.endereco, solicitante.cidade, solicitante.estado, solicitante.telefone, solicitante.email));
+    return solicitantes;
+  }
 }
