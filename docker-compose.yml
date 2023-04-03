@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db-postgres:
+    image: postgres:alpine
+    container_name: db-postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+    db-postgres-uno:
