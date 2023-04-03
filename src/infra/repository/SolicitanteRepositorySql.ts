@@ -66,7 +66,41 @@ export default class SolicitanteRepositorySql implements SolicitanteRepository {
 
   async getAllSolicitantes(): Promise<Solicitante[]> {
     let solicitantes = await prisma.solicitante.findMany();
-    solicitantes = solicitantes.map(solicitante => SolicitanteAdapter.create(solicitante.cnpj, solicitante.nome, solicitante.cep, solicitante.endereco, solicitante.cidade, solicitante.estado, solicitante.telefone, solicitante.email));
+    solicitantes = solicitantes.map((solicitante) =>
+      SolicitanteAdapter.create(
+        solicitante.cnpj,
+        solicitante.nome,
+        solicitante.cep,
+        solicitante.endereco,
+        solicitante.cidade,
+        solicitante.estado,
+        solicitante.telefone,
+        solicitante.email
+      )
+    );
     return solicitantes;
+  }
+
+  async updateSolicitante(
+    cnpj: string,
+    telefone: string,
+    email: string
+  ): Promise<Solicitante> {
+    const solicitate = await prisma.solicitante.findUnique({ where: { cnpj } });
+
+    if (!solicitate) throw new Error("Solicitante não encontrado!");
+
+    if (telefone.length === 0) telefone = solicitate.telefone;
+
+    if (email.length === 0) email = solicitate.email;
+    const solicitanteAtualizado = await prisma.solicitante.update({
+      where: { cnpj },
+      data: {
+        telefone: telefone,
+        email: email,
+      },
+    });
+
+    return solicitanteAtualizado;
   }
 }
