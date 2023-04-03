@@ -1,6 +1,6 @@
 import Solicitante from "../../core/solicitante/entity/Solicitante";
 import SolicitanteRepository from "../../core/solicitante/repository/SolicitanteRepository";
-import SolicitanteAdapter from "../../adapter/SolicitanteAdapter";
+import SolicitanteAdapter from "../../adapters/SolicitanteAdapter";
 import { prisma } from "../db/prisma";
 
 export default class SolicitanteRepositorySql implements SolicitanteRepository {
