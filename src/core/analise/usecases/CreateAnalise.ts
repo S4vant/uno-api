@@ -7,7 +7,7 @@ export default class CreateAnalise {
         this.analiseRepository = analiseRepository
     }
 
-    execute(id: string, nomeAnalise: string, especificacao: string, dataDeAnalise: string, status: string, amostra: string, amostraId: string, resultado: string) {
+    execute(id: string ,nomeAnalise: string, especificacao: string, dataDeAnalise: string, status: string, amostra: string, amostraId: string, resultado: string) {
         return this.analiseRepository.createAnalise(id, nomeAnalise, especificacao, dataDeAnalise, status, amostra, amostraId, resultado)
     }
 }

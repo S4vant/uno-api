@@ -41,7 +41,6 @@ export default class AnaliseRepositorySql implements AnaliseRepository {
 
     const analise = await prisma.analise.create({
       data: {
-        id,
         nomeAnalise,
         especificacao,
         dataDeAnalise,
@@ -83,35 +82,21 @@ export default class AnaliseRepositorySql implements AnaliseRepository {
 
   async updateAnalise(
     id: string,
-    nomeAnalise: string,
-    especificacao: string,
-    dataDeAnalise: string,
     status: string,
-    amostra: string,
-    amostraId: string,
     resultado: string
   ): Promise<Analise> {
     const analise = await prisma.analise.findUnique({ where: { id } });
 
     if (!analise) throw new Error("Analise não encontrada!");
 
-    if (amostra.length === 0) amostra = analise.amostra;
-
-    if (nomeAnalise.length === 0) nomeAnalise = analise.nomeAnalise;
+    if (status.length === 0) status = analise.status;
 
     if (resultado.length === 0) resultado = analise.resultado;
-
-    if (dataDeAnalise.length === 0) dataDeAnalise = analise.dataDeAnalise;
 
     const analiseAtualizada = await prisma.analise.update({
       where: { id },
       data: {
-        nomeAnalise: nomeAnalise,
-        especificacao: especificacao,
-        dataDeAnalise: dataDeAnalise,
         status: status,
-        amostra: amostra,
-        amostraId: amostraId,
         resultado: resultado
       },
     });

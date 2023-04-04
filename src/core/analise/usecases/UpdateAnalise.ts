@@ -7,7 +7,7 @@ export default class UpdateAnalise {
     this.analiseRepository = analiseRepository;
   }
 
-  execute(id: string, nomeAnalise: string, especificacao: string, dataDeAnalise: string, status: string, amostra: string, amostraId: string, resultado: string) {
-    return this.analiseRepository.updateAnalise(id, nomeAnalise, especificacao, dataDeAnalise, status, amostra, amostraId, resultado);
+  execute(id: string, status: string, resultado: string) {
+    return this.analiseRepository.updateAnalise(id, status, resultado);
   }
 }
