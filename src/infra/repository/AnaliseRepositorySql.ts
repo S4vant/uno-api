@@ -65,7 +65,7 @@ export default class AnaliseRepositorySql implements AnaliseRepository {
   }
 
   async getAllAnalises(): Promise<Analise[]> {
-    let analise = await prisma.analise.findMany();
+    let analises = await prisma.analise.findMany();
     analises = analises.map((analise) =>
       AnaliseAdapter.create(
         analise.id,
